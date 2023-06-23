@@ -34,8 +34,6 @@ VERSI="testing2"
       steps {
         sh '''#!/bin/bash
 				cd /var/lib/jenkins/workspace/testingphp/
-				rm -rf vendor
-				composer install --ignore-platform-reqs
              '''
       }
     }
