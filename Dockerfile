@@ -24,11 +24,12 @@ COPY . .
 # Install project dependencies
 RUN composer install --ignore-platform-reqs --no-interaction --no-plugins --no-scripts
 
+
 # Expose port (if necessary)
 EXPOSE 7000
 
 # Start PHP server (if necessary)
-# CMD ["php", "-S", "0.0.0.0:80", "-t", "public/"]
+CMD ["php", "-S", "0.0.0.0:7000", "-t", "public/"]
 
 # Example CMD for running a PHP script
 # CMD ["php", "script.php"]
