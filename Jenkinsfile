@@ -1,7 +1,7 @@
 pipeline {
   agent any
 environment {
-VERSI="testing"
+VERSI="testing2"
 }
   stages {
     stage('Checkout SCM') {
@@ -33,7 +33,7 @@ VERSI="testing"
 	stage('prepare workspace') {
       steps {
         sh '''#!/bin/bash
-				cd /var/lib/jenkins/workspace/sitp-report-tkd/
+				cd /var/lib/jenkins/workspace/testingphp/
 				rm -rf vendor
 				composer install --ignore-platform-reqs
              '''
@@ -42,7 +42,7 @@ VERSI="testing"
 	stage('docker build and push') {
       steps {
         sh '''#!/bin/bash
-        cd /var/lib/jenkins/workspace/sitp-report-tkd/ && docker build . -t nginx-report-tkd:${VERSI} && docker tag nginx-report-tkd:${VERSI} tkddev2:89/re/nginx-report-tkd:${VERSI} && docker push tkddev2:89/re/nginx-report-tkd:${VERSI}
+        cd /var/lib/jenkins/workspace/testingphp/ && docker build . -t nginx-report-tkd:${VERSI} && docker tag nginx-report-tkd:${VERSI} tkddev2:89/re/nginx-report-tkd:${VERSI} && docker push tkddev2:89/re/nginx-report-tkd:${VERSI}
              '''
       }
     }
