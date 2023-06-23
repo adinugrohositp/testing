@@ -1,13 +1,15 @@
-FROM php:8.0
+# Base image for PHP 8 with NGINX
+FROM php:8
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     zip \
-    unzip
+    unzip \
+    nginx
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql
+# Install PHP extensions (if needed)
+# RUN docker-php-ext-install <extension_name>
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -18,18 +20,17 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
-#composer update
-#composer install 
-
 # Install project dependencies
-RUN composer install --ignore-platform-reqs --no-interaction --no-plugins --no-scripts
+RUN composer install --no-interaction --no-plugins --no-scripts
 
+# Copy NGINX configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port (if necessary)
+# (Optional) Copy additional NGINX configuration files
+# COPY nginx_additional.conf /etc/nginx/conf.d/nginx_additional.conf
+
+# (Optional) Expose any necessary ports
 EXPOSE 7000
 
-# Start PHP server (if necessary)
-CMD ["php", "-S", "0.0.0.0:7000", "-t", "public/"]
-
-# Example CMD for running a PHP script
-# CMD ["php", "script.php"]
+# (Optional) Set the entry point or command to run
+CMD service nginx start && php-fpm
