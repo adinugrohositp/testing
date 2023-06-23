@@ -1,7 +1,7 @@
 pipeline {
   agent any
 environment {
-VERSI="0.1"
+VERSI="testing"
 }
   stages {
     stage('Checkout SCM') {
@@ -10,7 +10,7 @@ VERSI="0.1"
           $class: 'GitSCM',
           branches: [[name: 'main']],
           userRemoteConfigs: [[
-            url: 'git@github.com:baygiv2020/sitp-reporttkd-omspan-2023.git',
+            url: 'git@github.com:adinugrohositp/testing.git',
             credentialsId: '',
           ]]
          ])
